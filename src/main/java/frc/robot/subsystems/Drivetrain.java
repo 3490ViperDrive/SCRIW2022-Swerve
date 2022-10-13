@@ -4,10 +4,25 @@
 
 package frc.robot.subsystems;
 
+
+
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Drivetrain extends SubsystemBase {
-  /** Creates a new ExampleSubsystem. */
+  /*TODO:
+    -create SwerveDriveKinematics object
+      -Odometry would be nice but is not a requirement
+    -arcade drive method (interface with arcade drive command)
+    -make navX and reset
+  */
+
+  Translation2d m_locationFrontRight = new Translation2d(0.296863, -0.296863); //11.6875" in meters
+  Translation2d m_locationRearRight = new Translation2d(-0.296863, -0.296863);
+  Translation2d m_locationFrontLeft = new Translation2d(0.296863, 0.296863);
+  Translation2d m_locationRearLeft = new Translation2d(-0.296863, -0.296863);
+  /** Creates a new Drivetrain. */
   public Drivetrain() {
       super();
   }

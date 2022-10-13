@@ -43,7 +43,7 @@ public final class Constants {
 
         public static final class Calculations {
             //Module location is (+-kModuleDistance, +-kModuleDistance)
-            public static final double kModuleDistance = 0.296863; //11.6875" in meters
+            //public static final double kModuleDistance = 0.296863; //11.6875" in meters
 
             public static final double kModuleMaxSpeed = 4.96; //16.3 feet per second in m/s
             public static final double kChassisMaxSpeed = 4.96;
