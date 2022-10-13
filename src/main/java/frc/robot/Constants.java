@@ -12,4 +12,49 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class Constants {}
+public final class Constants {
+    //controller id
+    public static final int kMainControllerID = 0;
+
+    public static final class Drivetrain {
+        //CAN IDs
+        public static final int kMotorDriveFrontRightID = 0;
+        public static final int kMotorDriveRearRightID = 1;
+        public static final int kMotorDriveFrontLeftID = 2;
+        public static final int kMotorDriveRearLeftID = 3;
+
+        public static final int kMotorTurnFrontRightID = 4;
+        public static final int kMotorTurnRearRightID = 5;
+        public static final int kMotorTurnFrontLeftID = 6;
+        public static final int kMotorTurnRearLeftID = 7;
+
+        public static final int kEncoderTurnFrontRightID = 8;
+        public static final int kEncoderTurnRearRightID = 9;
+        public static final int kEncoderTurnFrontLeftID = 10;
+        public static final int kEncoderTurnRearLeftID = 11;
+
+        //CANcoder absolute offsets
+        public static final class EncoderOffsets {
+            public static final double kFrontRight = 54.844;
+            public static final double kRearRight = -154.951;
+            public static final double kFrontLeft = -139.922;
+            public static final double kRearLeft = 103.008;
+        }
+
+        public static final class Calculations {
+            //Module location is (+-kModuleDistance, +-kModuleDistance)
+            public static final double kModuleDistance = 0.296863; //11.6875" in meters
+
+            public static final double kModuleMaxSpeed = 4.96; //16.3 feet per second in m/s
+            public static final double kChassisMaxSpeed = 4.96;
+
+            public static final double kModuleMaxAngularVelocity = Math.PI * 1; //pi radians per second (180 deg/s)
+            public static final double kModuleMaxAngularAcceleration = Math.PI * 2; //2pi radians per second^2
+
+            public static final double kMotorMaxOutput = 0.5;
+            public static final double kMotorDeadband = 0.1;
+
+            public static final double kWheelCircumference = Math.PI * 9.6; //diameter is 3.8" (~9.6 cm)
+        }
+    }
+}
