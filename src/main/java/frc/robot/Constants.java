@@ -22,6 +22,9 @@ public final class Constants {
     }
 
     public static final class Drivetrain {
+        //set this to false if you absolutely loathe the superior form of robot control
+        public static final boolean kFieldOriented = true;
+
         //CAN IDs
         public static final int kMotorDriveFrontRightID = 0;
         public static final int kMotorDriveRearRightID = 1;
@@ -38,12 +41,32 @@ public final class Constants {
         public static final int kEncoderTurnFrontLeftID = 10;
         public static final int kEncoderTurnRearLeftID = 11;
 
-        //CANcoder absolute offsets
-        public static final class EncoderOffsets {
+        /** CANcoder absolute offsets */
+        public static final class Offsets {
             public static final double kFrontRight = 54.844;
             public static final double kRearRight = -154.951;
             public static final double kFrontLeft = -139.922;
             public static final double kRearLeft = 103.008;
+        }
+        
+        /** All the IDs needed to instantiate a SwerveModule in one place */
+        public static final class ModuleInfo {
+            public static final int[] kFrontRight = {
+                kMotorDriveFrontRightID,
+                kMotorTurnFrontRightID,
+                kEncoderTurnFrontRightID};
+            public static final int[] kRearRight = {
+                kMotorDriveRearRightID,
+                kMotorTurnRearRightID,
+                kEncoderTurnRearRightID};
+            public static final int[] kFrontLeft = {
+                kMotorDriveFrontLeftID,
+                kMotorTurnFrontLeftID,
+                kEncoderTurnFrontLeftID};
+            public static final int[] kRearLeft = {
+                kMotorDriveRearLeftID,
+                kMotorTurnRearLeftID,
+                kEncoderTurnRearLeftID};
         }
     }
 
@@ -62,16 +85,15 @@ public final class Constants {
 
         public static final double kWheelCircumference = Math.PI * Units.inchesToMeters(3.8); //diameter 3.8" in meters
         public static final double kFinalDriveRatio = 6.75;
+    }
+
+    public static final class UnitConvert {
         //conversion factors
-        /** native units (falcon encoder output for position) to degrees */
-        public static final double kNativeUnitsToDeg = 360/2048;
-        /** native units per decisecond (falcon encoder output for speed; tick readings every 100ms) to degrees per second */
-        public static final double kNUPerDStoDegPerS = 360/204.8;
         /** native units (falcon encoder output for position) to full rotations */
         public static final double kNativeUnitsToRot = 1/2048;
         /** native units per decisecond (falcon encoder output for speed; tick readings every 100ms) to rotations per second */
         public static final double kNUPerDStoRotPerS = 1/204.8;
-
-
+        /** rotations per second to native units per decisecond (falcon encoder output for speed; tick readings every 100ms)*/
+        public static final double kRotPerStoNUperDS = 204.8;
     }
 }
