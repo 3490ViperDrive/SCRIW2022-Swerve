@@ -23,6 +23,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   final Drivetrain m_drivetrain = new Drivetrain();
   final XboxController m_joystick = new XboxController(Constants.Controller.kMainID);
+  //this temporary autonomous command is temporary please remove asap
   final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   final CommandBase m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
