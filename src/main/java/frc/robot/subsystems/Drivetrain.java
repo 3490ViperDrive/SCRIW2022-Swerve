@@ -46,9 +46,6 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void arcadeDrive(double xSpeed, double ySpeed, double zRot) {
-    xSpeed = m_xSpeedLimiter.calculate(xSpeed);
-    ySpeed = m_ySpeedLimiter.calculate(ySpeed);
-    zRot = m_zRotationLimiter.calculate(zRot);
     SwerveModuleState[] moduleStates = m_kinematics.toSwerveModuleStates(
       Constants.Drivetrain.kFieldOriented ?
       ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zRot, m_navX.getRotation2d()) :
