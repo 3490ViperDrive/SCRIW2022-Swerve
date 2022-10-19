@@ -19,11 +19,13 @@ public final class Constants {
     public static final class Controller {
         public static final int kMainID = 0;
         public static final double kRateLimit = 0.3; // adjust robot acceleration speeds (units/second)
+        public static final double kTranslationDeadband = 0.08;
+        public static final double kRotationDeadband = 0.2;
     }
 
     public static final class Drivetrain {
         //set this to false if you absolutely loathe the superior form of robot control
-        public static final boolean kFieldOriented = true;
+        public static final boolean kFieldOriented = false;
 
         //CAN IDs
         public static final int kMotorDriveFrontRightID = 0;
@@ -87,6 +89,11 @@ public final class Constants {
         public static final double kFinalDriveRatio = 6.75;
     }
 
+    public static final class Climber {
+        public static final int kMotorClimbID = 12; //placeholder; replace this
+        public static final int kMotorPivotID = 13; //placeholder; replace this
+    }
+
     public static final class UnitConvert {
         //conversion factors
         /** native units (falcon encoder output for position) to full rotations */
@@ -96,4 +103,6 @@ public final class Constants {
         /** rotations per second to native units per decisecond (falcon encoder output for speed; tick readings every 100ms)*/
         public static final double kRotPerStoNUperDS = 204.8;
     }
+
+    public static final int kMotorLeafBlowerID = 14; //placeholder
 }

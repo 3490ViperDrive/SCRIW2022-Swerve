@@ -8,7 +8,9 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import frc.robot.Constants;
@@ -22,10 +24,10 @@ import frc.robot.Constants;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   final Drivetrain m_drivetrain = new Drivetrain();
+  final Climber m_climber = new Climber();
+  final LeafBlower m_leafBlower = new LeafBlower();
   final XboxController m_joystick = new XboxController(Constants.Controller.kMainID);
-  //this temporary autonomous command is temporary please remove asap
-  final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  final CommandBase m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  final SequentialCommandGroup m_autoCommand = new Autonomous(m_drivetrain);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -42,7 +44,28 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    //this is scuffed cram coding at scriw... pls fix
+    new JoystickButton(m_joystick, XboxController.Button.kA.value).whenHeld(
+      new StartEndCommand(() -> m_climber.runClimber(Climber.ClimbDirection.kDown), () -> m_climber.runClimber(Climber.ClimbDirection.kOff), m_climber)
+    );
+
+    new JoystickButton(m_joystick, XboxController.Button.kB.value).whenHeld(
+      new StartEndCommand(() -> m_climber.runClimber(Climber.ClimbDirection.kUp), () -> m_climber.runClimber(Climber.ClimbDirection.kOff), m_climber)
+    );
+
+    new JoystickButton(m_joystick, XboxController.Button.kX.value).whenHeld(
+      new StartEndCommand(() -> m_climber.runPivot(Climber.PivotDirection.kForward), () -> m_climber.runPivot(Climber.PivotDirection.kOff), m_climber)
+    );
+
+    new JoystickButton(m_joystick, XboxController.Button.kY.value).whenHeld(
+      new StartEndCommand(() -> m_climber.runPivot(Climber.PivotDirection.kReverse), () -> m_climber.runPivot(Climber.PivotDirection.kOff), m_climber)
+    );
+
+    new JoystickButton(m_joystick, XboxController.Button.kLeftBumper.value).whenHeld(
+      new StartEndCommand(() -> m_leafBlower.runLeafBlower(LeafBlower.LeafBlowerDirection.kOn), () -> m_leafBlower.runLeafBlower(LeafBlower.LeafBlowerDirection.kOff), m_climber)
+    );
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

@@ -54,11 +54,14 @@ public class SwerveModule {
     }
 
     public void setDesiredState (SwerveModuleState desiredState) {
+        //System.out.println("desired output for module: " + desiredState);
         desiredState = SwerveModuleState.optimize(desiredState, getState().angle);
         double targetWheelSpeed = desiredState.speedMetersPerSecond;
         //convert target angle and wheel speeds to native units
         double targetMotorSpeed = ((targetWheelSpeed * Constants.Calculations.kFinalDriveRatio) / Constants.Calculations.kWheelCircumference) * Constants.UnitConvert.kRotPerStoNUperDS;
         double turnOutput = (desiredState.angle.getDegrees()) * (4096.0/360.0); //conversion factor i think ,move to constants later
+        //System.out.println("output for module speed: " + targetMotorSpeed);
+        //System.out.println("output for module turn: " + turnOutput);
         m_motorDrive.set(TalonFXControlMode.Velocity, targetMotorSpeed); //if this doesn't work, try ControlMode.Velocity instead
         m_motorTurn.set(TalonFXControlMode.Position, turnOutput);
     }

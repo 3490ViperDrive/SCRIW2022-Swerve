@@ -6,7 +6,11 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import java.util.function.DoubleSupplier;
+import frc.robot.Constants;
 
 /** An example command that uses an example subsystem. */
 public class Drive extends CommandBase {
@@ -35,7 +39,12 @@ public class Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drivetrain.arcadeDrive(m_xSpeed.getAsDouble(), m_ySpeed.getAsDouble(), m_zRot.getAsDouble());
+    //System.out.println("xSpeed: " + -MathUtil.applyDeadband(m_xSpeed.getAsDouble(), Constants.Controller.kTranslationDeadband) * Constants.Calculations.kChassisMaxSpeed);
+    SmartDashboard.putNumber("xSpeed", -MathUtil.applyDeadband(m_xSpeed.getAsDouble(), Constants.Controller.kTranslationDeadband) * Constants.Calculations.kChassisMaxSpeed);
+    m_drivetrain.arcadeDrive(
+    -MathUtil.applyDeadband(m_xSpeed.getAsDouble(), Constants.Controller.kTranslationDeadband) * Constants.Calculations.kChassisMaxSpeed,
+    -MathUtil.applyDeadband(m_ySpeed.getAsDouble(), Constants.Controller.kTranslationDeadband) * Constants.Calculations.kChassisMaxSpeed,
+    -MathUtil.applyDeadband(m_zRot.getAsDouble(), Constants.Controller.kRotationDeadband) * Constants.Calculations.kModuleMaxAngularVelocity);
   }
 
   // Called once the command ends or is interrupted.
